@@ -1,12 +1,12 @@
 {
-    "name": "skycoin",
-    "productName": "Skycoin",
-    "author": "skycoin",
+    "name": "leonardiuztoken",
+    "productName": "LeonardiuzToken",
+    "author": "LeonardiuzToken",
     "main": "src/electron-main.js",
     "version": "0.20.3",
-    "description": "skycoin wallet",
+    "description": "Leonardiuz Token Wallet",
     "build": {
-        "appId": "org.skycoin.skycoin",
+        "appId": "org.Leonardiuz.lion",
         "nsis": {
             "oneClick": false,
             "allowToChangeInstallationDirectory": true

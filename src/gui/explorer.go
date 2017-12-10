@@ -91,7 +91,7 @@ func coinSupply(gateway *daemon.Gateway, w http.ResponseWriter, r *http.Request)
 
 	// "total supply" is the number of coins unlocked.
 	// Each distribution address was allocated visor.DistributionAddressInitialBalance coins.
-	totalSupply := uint64(len(unlockedAddrs)) * visor.DistributionAddressInitialBalance
+	totalSupply := uint64(len(unlockedAddrs)-1)*visor.DistributionAddressInitialBalance + visor.FirstCoinSupply
 	totalSupply *= droplet.Multiplier
 
 	// "current supply" is the number of coins distribution from the unlocked pool

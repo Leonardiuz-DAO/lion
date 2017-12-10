@@ -36,7 +36,7 @@ var (
 	help = false
 
 	logger     = logging.MustGetLogger("main")
-	logFormat  = "[skycoin.%{module}:%{level}] %{message}"
+	logFormat  = "[lion.%{module}:%{level}] %{message}"
 	logModules = []string{
 		"main",
 		"daemon",
@@ -51,26 +51,21 @@ var (
 	}
 
 	// GenesisSignatureStr hex string of genesis signature
-	GenesisSignatureStr = "eb10468d10054d15f2b6f8946cd46797779aa20a7617ceb4be884189f219bc9a164e56a5b9f7bec392a804ff3740210348d73db77a37adb542a8e08d429ac92700"
+	GenesisSignatureStr = "8f77b1766525aa51ad9f780fc8b65c302fd9cd072d6a201df452b003eae2bf9422e8aad4c316cf5baa36d9684f1a39d10dfcbe078ee119b1d0dea76274fdaefa01"
 	// GenesisAddressStr genesis address string
-	GenesisAddressStr = "2jBbGxZRGoQG1mqhPBnXnLTxK6oxsTf8os6"
+	GenesisAddressStr = "5iJdqtcio3aXmF3Kx2QYaws2HMAMiRoLK3"
 	// BlockchainPubkeyStr pubic key string
-	BlockchainPubkeyStr = "0328c576d3f420e7682058a981173a4b374c7cc5ff55bf394d3cf57059bbe6456a"
+	BlockchainPubkeyStr = "03a22b32e24642aa8b6206b42fa4e092b84107e8a22467f018577e9b2b4fd333d1"
 	// BlockchainSeckeyStr empty private key string
 	BlockchainSeckeyStr = ""
 
 	// GenesisTimestamp genesis block create unix time
-	GenesisTimestamp uint64 = 1426562704
+	GenesisTimestamp uint64 = 1512866888
 	// GenesisCoinVolume represents the coin capacity
-	GenesisCoinVolume uint64 = 100e12
+	GenesisCoinVolume uint64 = 888888888 * 1e6
 
 	// DefaultConnections the default trust node addresses
-	DefaultConnections = []string{
-		"118.178.135.93:6000",
-		"47.88.33.156:6000",
-		"121.41.103.148:6000",
-		"120.77.69.188:6000",
-	}
+	DefaultConnections = []string{}
 )
 
 // Command line interface arguments
@@ -116,7 +111,7 @@ type Config struct {
 	// If true, print the configured client web interface address and exit
 	PrintWebInterfaceAddress bool
 
-	// Data directory holds app data -- defaults to ~/.skycoin
+	// Data directory holds app data -- defaults to ~/.lion
 	DataDirectory string
 	// GUI directory contains assets for the html gui
 	GUIDirectory string
@@ -200,7 +195,7 @@ func (c *Config) register() {
 	flag.BoolVar(&c.PrintWebInterfaceAddress, "print-web-interface-address",
 		c.PrintWebInterfaceAddress, "print configured web interface address and exit")
 	flag.StringVar(&c.DataDirectory, "data-dir", c.DataDirectory,
-		"directory to store app data (defaults to ~/.skycoin)")
+		"directory to store app data (defaults to ~/.lion)")
 	flag.StringVar(&c.ConnectTo, "connect-to", c.ConnectTo,
 		"connect to this ip only")
 	flag.BoolVar(&c.ProfileCPU, "profile-cpu", c.ProfileCPU,
@@ -236,7 +231,7 @@ func (c *Config) register() {
 		"genesis block timestamp")
 
 	flag.StringVar(&c.WalletDirectory, "wallet-dir", c.WalletDirectory,
-		"location of the wallet files. Defaults to ~/.skycoin/wallet/")
+		"location of the wallet files. Defaults to ~/.lion/wallet/")
 
 	flag.DurationVar(&c.OutgoingConnectionsRate, "connection-rate",
 		c.OutgoingConnectionsRate, "How often to make an outgoing connection")
@@ -260,7 +255,7 @@ var devConfig = Config{
 	// public interface
 	Address: "",
 	//gnet uses this for TCP incoming and outgoing
-	Port: 6000,
+	Port: 7500,
 
 	MaxConnections: 16,
 	// How often to make outgoing connections, in seconds
@@ -269,7 +264,7 @@ var devConfig = Config{
 	//AddressVersion: "test",
 	// Remote web interface
 	WebInterface:             true,
-	WebInterfacePort:         6420,
+	WebInterfacePort:         8020,
 	WebInterfaceAddr:         "127.0.0.1",
 	WebInterfaceCert:         "",
 	WebInterfaceKey:          "",
@@ -277,13 +272,13 @@ var devConfig = Config{
 	PrintWebInterfaceAddress: false,
 
 	RPCInterface:     true,
-	RPCInterfacePort: 6430,
+	RPCInterfacePort: 8030,
 	RPCInterfaceAddr: "127.0.0.1",
 	RPCThreadNum:     5,
 
 	LaunchBrowser: true,
-	// Data directory holds app data -- defaults to ~/.skycoin
-	DataDirectory: ".skycoin",
+	// Data directory holds app data -- defaults to ~/.lion
+	DataDirectory: ".lion",
 	// Web GUI static resources
 	GUIDirectory: "./src/gui/static/",
 	// Logging
@@ -307,7 +302,7 @@ var devConfig = Config{
 	// Enable cpu profiling
 	ProfileCPU: false,
 	// Where the file is written to
-	ProfileCPUFile: "skycoin.prof",
+	ProfileCPUFile: "lion.prof",
 	// HTTP profiling interface (see http://golang.org/pkg/net/http/pprof/)
 	HTTPProf: false,
 	// Will force it to connect to this ip:port, instead of waiting for it
@@ -507,7 +502,7 @@ func configureDaemon(c *Config) daemon.Config {
 	return dc
 }
 
-// Run starts the skycoin node
+// Run starts the lion node
 func Run(c *Config) {
 	defer func() {
 		// try catch panic in main thread
@@ -588,7 +583,7 @@ func Run(c *Config) {
 		var err error
 		if c.WebInterfaceHTTPS {
 			// Verify cert/key parameters, and if neither exist, create them
-			errs := cert.CreateCertIfNotExists(host, c.WebInterfaceCert, c.WebInterfaceKey, "Skycoind")
+			errs := cert.CreateCertIfNotExists(host, c.WebInterfaceCert, c.WebInterfaceKey, "Liond")
 			if len(errs) != 0 {
 				for _, err := range errs {
 					logger.Error(err.Error())
@@ -632,21 +627,19 @@ func Run(c *Config) {
 		}
 	*/
 
-	/*
-		//first transaction
-		if c.RunMaster == true {
-			go func() {
-				for d.Visor.Visor.Blockchain.Head().Seq() < 2 {
-					time.Sleep(5)
-					tx := InitTransaction()
-					err, _ := d.Visor.Visor.InjectTxn(tx)
-					if err != nil {
-						//log.Panic(err)
-					}
-				}
-			}()
-		}
-	*/
+	//first transaction
+	// if c.RunMaster == true {
+	// 	go func() {
+	// 		for d.Visor.HeadBkSeq() < 1 {
+	// 			time.Sleep(5 * time.Second)
+	// 			tx := InitTransaction()
+	// 			_, err := d.Visor.InjectTxn(tx)
+	// 			if err != nil {
+	// 				log.Panic(err)
+	// 			}
+	// 		}
+	// 	}()
+	// }
 
 	select {
 	case <-quit:
@@ -674,33 +667,37 @@ func main() {
 func InitTransaction() coin.Transaction {
 	var tx coin.Transaction
 
-	output := cipher.MustSHA256FromHex("043836eb6f29aaeb8b9bfce847e07c159c72b25ae17d291f32125e7f1912e2a0")
+	output := cipher.MustSHA256FromHex("cbf207c610e83201a2f44563602d0648a9a3ac1fe3fb43ad0c9a4cf46841eb94")
 	tx.PushInput(output)
 
 	addrs := visor.GetDistributionAddresses()
 
-	if len(addrs) != 100 {
+	if len(addrs) != 101 {
 		log.Panic("Should have 100 distribution addresses")
 	}
 
 	// 1 million per address, measured in droplets
-	if visor.DistributionAddressInitialBalance != 1e6 {
+	if visor.DistributionAddressInitialBalance != 8e6 {
 		log.Panic("visor.DistributionAddressInitialBalance expected to be 1e6*1e6")
 	}
 
 	for i := range addrs {
 		addr := cipher.MustDecodeBase58Address(addrs[i])
+		if i == 0 {
+			tx.PushOutput(addr, visor.FirstCoinSupply*1e6, 1)
+			continue
+		}
+
 		tx.PushOutput(addr, visor.DistributionAddressInitialBalance*1e6, 1)
 	}
-	/*
-		seckeys := make([]cipher.SecKey, 1)
-		seckey := ""
-		seckeys[0] = cipher.MustSecKeyFromHex(seckey)
-		tx.SignInputs(seckeys)
-	*/
+
+	// seckeys := make([]cipher.SecKey, 1)
+	// seckey := ""
+	// seckeys[0] = cipher.MustSecKeyFromHex(seckey)
+	// tx.SignInputs(seckeys)
 
 	txs := make([]cipher.Sig, 1)
-	sig := "ed9bd7a31fe30b9e2d53b35154233dfdf48aaaceb694a07142f84cdf4f5263d21b723f631817ae1c1f735bea13f0ff2a816e24a53ccb92afae685fdfc06724de01"
+	sig := "eb1a7666275b67675e63d0409b314eaceeeedc974ace9afe2783fa91ddcad1540125b472bd74a2aa4c18ecae59d33b025153fb5778c6e63b0136f91bcf4a84cc01"
 	txs[0] = cipher.MustSigFromHex(sig)
 	tx.Sigs = txs
 

@@ -65,7 +65,10 @@ var (
 	GenesisCoinVolume uint64 = 888888888 * 1e6
 
 	// DefaultConnections the default trust node addresses
-	DefaultConnections = []string{}
+	DefaultConnections = []string{
+		"132.148.138.252:7500",
+		"132.148.138.200:7500",
+	}
 )
 
 // Command line interface arguments

@@ -1,5 +1,5 @@
 {
-    "name": "leonardiuztoken",
+    "name": "leonardiuz-token",
     "productName": "LeonardiuzToken",
     "author": "LeonardiuzToken",
     "main": "src/electron-main.js",

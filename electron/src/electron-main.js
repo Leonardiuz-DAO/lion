@@ -53,15 +53,15 @@ function startSkycoin() {
   var exe = (() => {
         switch (process.platform) {
   case 'darwin':
-    return path.join(appPath, '../../Resources/app/skycoin');
+    return path.join(appPath, '../../Resources/app/leonardiuz-token');
   case 'win32':
     // Use only the relative path on windows due to short path length
     // limits
-    return './resources/app/skycoin.exe';
+    return './resources/app/leonardiuz-token.exe';
   case 'linux':
-    return path.join(path.dirname(appPath), './resources/app/skycoin');
+    return path.join(path.dirname(appPath), './resources/app/leonardiuz-token');
   default:
-    return './resources/app/skycoin';
+    return './resources/app/leonardiuz-token';
   }
 })()
 
@@ -131,7 +131,7 @@ function createWindow(url) {
   win = new BrowserWindow({
     width: 1200,
     height: 900,
-    title: 'Skycoin',
+    title: 'Leonardiuz Token',
     nodeIntegration: false,
     webPreferences: {
       webgl: false,
@@ -166,9 +166,9 @@ function createWindow(url) {
 
   // create application's main menu
   var template = [{
-    label: "Skycoin",
+    label: "Leonardiuz-token",
     submenu: [
-      { label: "About Skycoin", selector: "orderFrontStandardAboutPanel:" },
+      { label: "About Leonardiuz token", selector: "orderFrontStandardAboutPanel:" },
       { type: "separator" },
       { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); } }
     ]
